@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Encriptador y Desencriptador de Texto</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+        #resultado {
+            margin-left: 20px;
+            font-weight: bold;
+        }
+        .btn-encriptar {
+            background-color: blue;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .btn-desencriptar {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Encriptador y Desencriptador de Texto</h1>
+        <label for="texto">Ingresa el texto:</label>
+        <input type="text" id="texto" />
+        <br><br>
+        <button class="btn-encriptar" onclick="encriptarTexto()">Encriptar</button>
+        <button class="btn-desencriptar" onclick="desencriptarTexto()">Desencriptar</button>
+    </div>
+    <p>Resultado: <span id="resultado"></span></p>
+
+    <script>
+        const desplazamiento = 3; // Número de posiciones a desplazar
+
+        function encriptarTexto() {
+            const texto = document.getElementById("texto").value;
+            let textoEncriptado = '';
+
+            for (let i = 0; i < texto.length; i++) {
+                let charCode = texto.charCodeAt(i);
+                
+                if (charCode >= 65 && charCode <= 90) {
+                    // Mayúsculas
+                    textoEncriptado += String.fromCharCode(((charCode - 65 + desplazamiento) % 26) + 65);
+                } else if (charCode >= 97 && charCode <= 122) {
+                    // Minúsculas
+                    textoEncriptado += String.fromCharCode(((charCode - 97 + desplazamiento) % 26) + 97);
+                } else {
+                    // Otros caracteres (se dejan sin cambios)
+                    textoEncriptado += String.fromCharCode(charCode);
+                }
+            }
+
+            document.getElementById("resultado").textContent = textoEncriptado;
+        }
+
+        function desencriptarTexto() {
+            const texto = document.getElementById("texto").value;
+            let textoDesencriptado = '';
+
+            for (let i = 0; i < texto.length; i++) {
+                let charCode = texto.charCodeAt(i);
+                
+                if (charCode >= 65 && charCode <= 90) {
+                    // Mayúsculas
+                    textoDesencriptado += String.fromCharCode(((charCode - 65 - desplazamiento + 26) % 26) + 65);
+                } else if (charCode >= 97 && charCode <= 122) {
+                    // Minúsculas
+                    textoDesencriptado += String.fromCharCode(((charCode - 97 - desplazamiento + 26) % 26) + 97);
+                } else {
+                    // Otros caracteres (se dejan sin cambios)
+                    textoDesencriptado += String.fromCharCode(charCode);
+                }
+            }
+
+            document.getElementById("resultado").textContent = textoDesencriptado;
+        }
+    </script>
+</body>
+</html>
